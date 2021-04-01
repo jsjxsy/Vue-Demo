@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>method</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{message}}</p>
+    <p>{{methods('app')}}</p>
+    <p>{{b()}}</p>
+    <p>{{result}}</p>
+    <p v-for="index in number" :key="index" :class="c(index)">{{index}}</p>
+<!--    <p>index:{{index}}</p>-->
+</div>
+</body>
+<script>
+var vm = new Vue({
+    el: '#app',
+    data: {
+        message: 'hello world',
+        result: true,
+        number: 2,
+        index: 0
+    },
+    methods: {
+        a(value) {
+            this.message = value
+            console.log('a()')
+            return this.message
+        },
+        b() {
+            console.log('b()')
+            return this.message
+        },
+        c(value) {
+            console.log('c()')
+            this.index = value
+        }
+    }
+})
+</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listener</title>
+</head>
+<body>
+<div id="app">
+   <input v-bind="property">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+const app = new Vue({
+    el: '#app',
+    data:{
+        property:{
+            value:"input",
+            type:"text",
+            size:"20px"
+        }
+    }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        main {
+            width: 180px;
+            margin: 10px auto;
+            border: 1px solid black;
+        }
+
+        ul, li {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .triangle-right {
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 10px solid gray;
+            display: inline-block;
+            margin: 0px 4px 0px 4px;
+            padding: 0px;
+        }
+
+        li.title {
+            font-size: 20px;
+            color: black;
+            background-color: #5683EA;
+        }
+
+        li.content {
+            display: none;
+        }
+
+        li.content > ul {
+            background-color: white;
+        }
+
+        li.content > ul > li {
+            padding-left: 30px;
+            border-bottom: 1px solid black;
+        }
+    </style>
+    <script>
+    window.onload=function () {
+        const titles = document.getElementsByClassName('title')
+        const contents = document.getElementsByClassName('content')
+        for (const index in titles) {
+            if(!titles.hasOwnProperty(index)){
+                continue
+            }
+
+            titles[index].addEventListener('click', function () {
+                this.index = index
+                for (const index in titles){
+                    if(!titles.hasOwnProperty(index)){
+                        continue
+                    }
+
+                    if (this.index == index) {
+                        titles[index].style['backgroundColor'] = 'yellow'
+                    } else {
+                        titles[index].style['backgroundColor'] = '#5683EA'
+                    }
+                }
+                for (const index in contents) {
+                    if(!contents.hasOwnProperty(index)){
+                        continue
+                    }
+                    if(this.index == index){
+                        contents[index].style['display'] = 'block'
+                    }else{
+                        contents[index].style['display'] = 'none'
+                    }
+                }
+            }, false)
+        }
+    }
+    // function selectItem(element) {
+    //     const titles = document.getElementsByClassName('title')
+    //     for (let i = 0; i < titles.length; i++) {
+    //         let item = titles[i]
+    //         if (item == element) {
+    //             item.style['backgroundColor'] = 'yellow'
+    //         } else {
+    //             item.style['backgroundColor'] = '#5683EA'
+    //         }
+    //     }
+    //     const contents = document.getElementsByClassName('content')
+    //     for (let i = 0; i < contents.length; i++) {
+    //         let item = contents[i]
+    //         if (item == element.nextSibling.nextSibling) {
+    //             item.style['display'] = 'block'
+    //         } else {
+    //             item.style['display'] = 'none'
+    //         }
+    //     }
+    // }
+    </script>
+</head>
+<body>
+<main>
+    <ul>
+        <li class="title">
+            <div class="triangle-right"></div>
+            <span>我的好友</span>
+        </li>
+        <li class="content">
+            <ul>
+                <li>张三</li>
+                <li>张三</li>
+                <li>张三</li>
+                <li>张三</li>
+            </ul>
+        </li>
+        <li class="title">
+            <div class="triangle-right"></div>
+            <span>企业好友</span>
+        </li>
+        <li class="content">
+            <ul>
+                <li>李四</li>
+                <li>李四</li>
+                <li>李四</li>
+                <li>李四</li>
+            </ul>
+        </li>
+        <li class="title">
+            <div class="triangle-right"></div>
+            <span>黑名单</span>
+        </li>
+        <li class="content">
+            <ul>
+                <li>张小三</li>
+                <li>李小四</li>
+            </ul>
+        </li>
+    </ul>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listener</title>
+</head>
+<body>
+<div id="app">
+    <base-input
+            label="姓名"
+            class="name-input"
+            placeholder="请输入姓名"
+            test2attrs="custom"
+            test-attrs="$attrs"></base-input>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+Vue.component('base-input', {
+    inheritAttrs: true, //此处设置禁用继承特性
+    props: ['label'],
+    template: `
+        <label>
+          {{label}}-
+          {{$attrs.placeholder}}-
+            {{$attrs.test2attrs}}
+          <input v-bind="$attrs"/>
+        </label>
+        `,
+    mounted: function () {
+        console.log(this.$attrs)
+    }
+})
+const app = new Vue({
+    el: '#app'
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>listener</title>
+    <style>
+        .a, .b, .c {
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <comp-a :name="name" :age="age">
+        <comp-b>
+            <comp-c></comp-c>
+        </comp-b>
+    </comp-a>
+</div>
+<template id="a">
+    <div class="a">
+        A
+        <test1 v-bind="$attrs">
+        </test1>
+    </div>
+</template>
+<template id="b">
+    <div class="b">
+        B
+        <slot></slot>
+    </div>
+</template>
+<template id="c">
+    <div class="c">
+        C
+    </div>
+</template>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+Vue.component('test1', {
+    template: `<h1>name: {{$attrs.name}} age:{{$attrs.age}}<test2 v-bind="$attrs"></test2></h1>`
+})
+
+Vue.component('test2', {
+    template: `<h2>this is test2</h2>`
+})
+const app = new Vue({
+    el: '#app',
+    data: {
+        name: 'li si',
+        age: 12
+    },
+    components: {
+        'comp-a': {
+            template: '#a'
+        },
+        'comp-b': {
+            template: '#b'
+        },
+        'comp-c': {
+            template: '#c'
+        }
+    }
+})
+</script>
+</body>
+</html>

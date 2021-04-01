@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入核心的Vue框架 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="cc">
+    <a :href="website" @click.prevent="show()">百度</a>
+</div>
+<script>
+let vm = new Vue({
+    el: '#cc',
+    data: {
+        website: 'https://www.baidu.com',
+    },
+    methods: {
+        sayName: function () {
+            console.log(this.name)
+        },
+        show: function () {
+            console.log('王展')
+        }
+    }
+
+})
+</script>
+</body>
+</html>

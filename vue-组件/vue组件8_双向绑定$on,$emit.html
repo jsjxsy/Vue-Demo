@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first Vue app</title>
+    </head>
+    <body>
+    <div id="test-instanceOn">
+        <p>message: {{message}}</p>
+        <p>show: {{show}}</p>
+        <button v-on:click="changeMsg">ClickMe</button>
+        <button v-on:click="closeEvent">close message</button>
+    </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+    new Vue({
+        el: '#test-instanceOn',
+        data: {
+            message: 'Hello',
+            show: 'abc'
+        },
+        methods: {
+            changeMsg: function () {
+                this.$emit('blank');
+                this.$emit('reverseMessage');
+                this.$emit('changeShow');
+
+            },
+            closeEvent: function () {
+                this.$off('blank'); // 提供了事件，则移除该事件所有监听器
+//                this.$off();// 没有提供参数，则移除实例所有的事件和监听器
+            }
+        },
+        created: function () {// 生命周期钩子
+            this.$on('blank', function () {
+                console.log("blank");
+            });
+            this.$on('reverseMessage', function () {
+                console.log("reverseMessage");
+            });
+            this.$on('reverseMessage', function () {
+                this.message = this.message.split('').reverse().join('')
+            });
+            this.$once('changeShow', function () {
+                this.show = this.show.split('').reverse().join('')
+            })
+        }
+    });
+    </script>
+</html>

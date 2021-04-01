@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background: #f00;
+            position: absolute;
+            left: 0;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="box" ref="box1" :style="styleDiv" ></div>
+<script>
+const vm = new Vue({
+    el: "#box",
+    data: {
+        styleDiv: {
+            width: '',
+            height: '',
+            left: '',
+            top: ''
+        }
+    },
+    computed: {},
+    methods: {
+        init() {
+            const box = this.$refs.box1;
+            this.movePromise(box, 'width', 200, 500)
+                .then(() => movePromise(box, 'height', 300, 1000))
+                .then(() => movePromise(box, 'left', 300, 1000))
+                .then(() => movePromise(box, 'top', 200, 1000))
+                .then(() => console.log('done'))
+        },
+        movePromise(obj, attr, target, duration) {
+            return new Promise((res, rej) => {
+                let b = parseInt(getComputedStyle(obj)[attr])
+                let c = target - b
+                let d = duration
+                let temp = new Date().getTime()
+                let timer = setInterval(function () {
+                    let t = new Date().getTime() - temp
+                    if (t >= d) {
+                        clearInterval(timer)
+                        t = d
+                    }
+                    let v = c / d * t + b
+                    obj.style[attr] = v + 'px'
+                    if (t === d) {
+                        res('success')
+                    }
+                }, 20)
+            })
+        }
+    },
+    mounted() {
+        this.init()
+    }
+})
+
+function movePromise(obj, attr, target, duration) {
+    return new Promise((res, rej) => {
+        let b = parseInt(getComputedStyle(obj)[attr])
+        let c = target - b
+        let d = duration
+        let temp = new Date().getTime()
+        let timer = setInterval(function () {
+            let t = new Date().getTime() - temp
+            if (t >= d) {
+                clearInterval(timer)
+                t = d
+            }
+            let v = c / d * t + b
+            obj.style[attr] = v + 'px'
+            if (t === d) {
+                res('success')
+            }
+        }, 20)
+    })
+}
+
+</script>
+</body>
+</html>
