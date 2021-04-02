@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$delete</title>
+</head>
+<body>
+<div id="app">
+    <div v-for="(item, index) in dataarr" :key="index">
+        <span>{{item.ceshi}}---</span>
+        <span class="xiugia" @click="xiugiaClick(index)">删除</span>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+const vm = new Vue({
+    el: '#app',
+    data: {
+        dataarr: [
+            {ceshi: '娃哈哈', id: '1'},
+            {ceshi: '粽子', id: '2'},
+            {ceshi: '可乐', id: '3'}
+        ]
+
+    },
+    methods: {
+        xiugiaClick(index) {
+            // 响应式的数据
+            this.$delete(this.dataarr, index)
+            //delete this.dataarr[index] 失效
+            console.log(this.dataarr)
+        }
+    }
+})
+</script>
+</body>
+</html>
