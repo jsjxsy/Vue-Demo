@@ -7,25 +7,25 @@
 </head>
 <body>
 <div id="app">
-    <input type="text" v-model="firstname">+
-    <input type="text" v-model="lastname">=
-    <input type="text" v-model="fullname">
+    <input type="text" v-model="first_name">+
+    <input type="text" v-model="last_name">=
+    <input type="text" v-model="full_name">
 </div>
 <script>
 new Vue({
     el: '#app',
     data: {
-        firstname: '',
-        lastname: '',
-        fullname: ''
+        first_name: '',
+        last_name: '',
+        full_name: ''
     },
     // watch属性能够监听data中的属性的变化，一变化就会促发相应的函数
     watch: {
-        firstname: function () {
-            this.fullname = this.firstname + '-' + this.lastname
+        first_name: function () {
+            this.full_name = this.first_name + '-' + this.last_name
         },
-        lastname: function () {
-            this.fullname = this.firstname + '-' + this.lastname
+        last_name: function () {
+            this.full_name = this.first_name + '-' + this.last_name
         }
 
     }

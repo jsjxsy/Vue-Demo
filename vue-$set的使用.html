@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$set</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="item in list" :key="item">{{item}}</li>
+    </ul>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+const vm = new Vue({
+    el: '#app',
+    data: {
+        list: ['1', '2', '3']
+    },
+    mounted() {
+        //this.list[0] = '2' //失效
+        this.$set(this.list, 0, 4)
+        console.log(this.list)
+    }
+})
+</script>
+</body>
+</html>
