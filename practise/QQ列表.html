@@ -46,102 +46,47 @@
             border-bottom: 1px solid black;
         }
     </style>
-    <script>
-    window.onload=function () {
-        const titles = document.getElementsByClassName('title')
-        const contents = document.getElementsByClassName('content')
-        for (const index in titles) {
-            if(!titles.hasOwnProperty(index)){
-                continue
-            }
-
-            titles[index].addEventListener('click', function () {
-                this.index = index
-                for (const index in titles){
-                    if(!titles.hasOwnProperty(index)){
-                        continue
-                    }
-
-                    if (this.index == index) {
-                        titles[index].style['backgroundColor'] = 'yellow'
-                    } else {
-                        titles[index].style['backgroundColor'] = '#5683EA'
-                    }
-                }
-                for (const index in contents) {
-                    if(!contents.hasOwnProperty(index)){
-                        continue
-                    }
-                    if(this.index == index){
-                        contents[index].style['display'] = 'block'
-                    }else{
-                        contents[index].style['display'] = 'none'
-                    }
-                }
-            }, false)
-        }
-    }
-    // function selectItem(element) {
-    //     const titles = document.getElementsByClassName('title')
-    //     for (let i = 0; i < titles.length; i++) {
-    //         let item = titles[i]
-    //         if (item == element) {
-    //             item.style['backgroundColor'] = 'yellow'
-    //         } else {
-    //             item.style['backgroundColor'] = '#5683EA'
-    //         }
-    //     }
-    //     const contents = document.getElementsByClassName('content')
-    //     for (let i = 0; i < contents.length; i++) {
-    //         let item = contents[i]
-    //         if (item == element.nextSibling.nextSibling) {
-    //             item.style['display'] = 'block'
-    //         } else {
-    //             item.style['display'] = 'none'
-    //         }
-    //     }
-    // }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<main>
+<div id="app">
     <ul>
-        <li class="title">
-            <div class="triangle-right"></div>
-            <span>我的好友</span>
-        </li>
-        <li class="content">
-            <ul>
-                <li>张三</li>
-                <li>张三</li>
-                <li>张三</li>
-                <li>张三</li>
-            </ul>
-        </li>
-        <li class="title">
-            <div class="triangle-right"></div>
-            <span>企业好友</span>
-        </li>
-        <li class="content">
-            <ul>
-                <li>李四</li>
-                <li>李四</li>
-                <li>李四</li>
-                <li>李四</li>
-            </ul>
-        </li>
-        <li class="title">
-            <div class="triangle-right"></div>
-            <span>黑名单</span>
-        </li>
-        <li class="content">
-            <ul>
-                <li>张小三</li>
-                <li>李小四</li>
-            </ul>
-        </li>
+        <template v-for="item in menu">
+            <li class="title" @click="item.isShow = !item.isShow">
+                <div class="triangle-right"></div>
+                <span>{{item.title}}</span>
+            </li>
+            <li class="content" :style="item.isShow ? {display:'block'}:{display:'none'}">
+                <ul>
+                    <li v-for="(child, index) in item.children" :key="index">{{child}}</li>
+                </ul>
+            </li>
+        </template>
     </ul>
-</main>
-
+</div>
+<script>
+const vm = new Vue({
+    el: '#app',
+    data: {
+        menu: [
+            {
+                title: '我的好友',
+                isShow: false,
+                children: ['张三', '张三', '张三', '张三']
+            },
+            {
+                title: '企业好友',
+                isShow: false,
+                children: ['李四', '李四', '李四', '李四']
+            },
+            {
+                title: '黑名单',
+                isShow: false,
+                children: ['张小三', '李小四']
+            }
+        ]
+    }
+})
+</script>
 </body>
 </html>
