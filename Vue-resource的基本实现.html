@@ -7,34 +7,30 @@
     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 </head>
 <body>
-    <div id="app">
-        <input type="button" value="提交GET" @click="getinfo">
-        <input type="button" value="提交post" @click="getPOst">
+<div id="app">
+    <input type="button" value="提交GET" @click="getInfo">
+    <input type="button" value="提交post" @click="getPost">
 
-    </div>
-    <script>
-        new Vue({
-            el:"#app",
-            data:{
-                name:"wangzhan"
-            },
-            methods: {
-                getinfo(){
-                    this.$http.get("./cc3.php").then(function(result){
-                        console.log(result.body)
-                    })
-                },
-                getPOst(){
-                    this.$http.post("./cc3.php",{},{emulateJSON:true}).then(result =>{
-                        console.log(result.body)
-                    })
-                }
-            },
-        })
-    
-    
-    
-    
-    </script>
+</div>
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        name: 'wangzhan'
+    },
+    methods: {
+        getInfo() {
+            this.$http.get('./cc3.php').then(function (result) {
+                console.log(result.body)
+            })
+        },
+        getPost() {
+            this.$http.post('./cc3.php', {}, {emulateJSON: true}).then(result => {
+                console.log(result.body)
+            })
+        }
+    }
+})
+</script>
 </body>
 </html>
