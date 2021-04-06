@@ -62,7 +62,7 @@ new Vue({
     },
     methods: {
         add() {
-            var obj = {id: this.id, name: this.name, time: new Date()}
+            const obj = {id: this.id, name: this.name, time: new Date()}
             this.list.push(obj)
             this.id = this.name = ''
         },
