@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
@@ -16,78 +19,79 @@
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <div id="parent">
-        <p>{{person.name}}</p>
-        <p>{{person.age}}</p>
-    </div>
-    <div id="app">
-        <!-- 绑定到Dom文本 -->
-        <div>{{foo}}</div>
-        <input type="text" v-model="foo" />
-        <button @click="foo = 'baz'" v-bind:value="foo">Change it</button>
-        <login></login>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script>
-    const vm = new Vue({
-        el:'#parent',
-        data:{
-            person:{
-                age:12,
-                name:'li si'
-            }
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a>
+    to improve your experience.</p>
+<![endif]-->
+<div id="parent">
+    <p>{{person.name}}</p>
+    <p>{{person.age}}</p>
+</div>
+<div id="app">
+    <!-- 绑定到Dom文本 -->
+    <div>{{foo}}</div>
+    <input type="text" v-model="foo"/>
+    <button @click="foo = 'baz'" v-bind:value="foo">Change it</button>
+    <login></login>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+const vm = new Vue({
+    el: '#parent',
+    data: {
+        person: {
+            age: 12,
+            name: 'li si'
         }
-    })
+    }
+})
 
-        const obj = {
-            foo: 'bar'
+const obj = {
+    foo: 'bar'
+}
+// Object.freeze(obj);
+const app = new Vue({
+    el: '#app',
+    data: obj,
+    customOption: 'foo',
+    components: {
+        'login': {
+            template: '<h1>this is login</h1>'
         }
-        // Object.freeze(obj);
-        const app = new Vue({
-            el: "#app",
-            data: obj,
-            customOption: 'foo',
-            components:{
-                'login':{
-                    template:"<h1>this is login</h1>"
-                }
-            }
-        })
-        /**
-         * vm.$data
-         vm.$props
-         vm.$el
-         vm.$options
-         vm.$parent
-         vm.$root
-         vm.$children
-         vm.$slots
-         vm.$scopedSlots
-         vm.$refs
-         vm.$isServer
-         vm.$attrs
-         vm.$listeners
-         * */
-        console.log(app.$data);
-        console.log(app.$el);
-        console.log(app.$options);
-        console.log(app.$options.customOption);
-        console.log(app.$parent);
-        console.log(app.$root);
-        console.log(app.$children);
-        console.log(app.$isServer);
-        console.log(app.$attrs);
-        console.log(app.$listeners);
-        console.log(app.$el === document.getElementById("app"));
-        app.$watch('foo', (newValue, oldValue) => {
-            console.log(newValue + " " + oldValue);
-        })
+    }
+})
+/**
+ * vm.$data
+ vm.$props
+ vm.$el
+ vm.$options
+ vm.$parent
+ vm.$root
+ vm.$children
+ vm.$slots
+ vm.$scopedSlots
+ vm.$refs
+ vm.$isServer
+ vm.$attrs
+ vm.$listeners
+ * */
+console.log(app.$data)
+console.log(app.$el)
+console.log(app.$options)
+console.log(app.$options.customOption)
+console.log(app.$parent)
+console.log(app.$root)
+console.log(app.$children)
+console.log(app.$isServer)
+console.log(app.$attrs)
+console.log(app.$listeners)
+console.log(app.$el === document.getElementById('app'))
+app.$watch('foo', (newValue, oldValue) => {
+    console.log(newValue + ' ' + oldValue)
+})
 
 
-    </script>
+</script>
 </body>
 
 </html>
