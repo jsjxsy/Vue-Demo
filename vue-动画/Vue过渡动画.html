@@ -23,8 +23,8 @@
         .my-enter-active,.my-leave-active{
             transition: all .4s linear;
         }
-    
-    
+
+
     </style>
 </head>
 <body>
@@ -35,7 +35,7 @@
             <h1 v-if="flag">我是一个h1</h1>
         </transition>
         <transition name="my"><h2 v-if="flag1">我是一个h2</h2></transition>
-        
+
     </div>
     <script>
         new Vue({
@@ -45,13 +45,9 @@
                 flag1:false
             },
             methods: {
-                
+
             },
         })
-    
-    
-    
-    
     </script>
 </body>
 </html>

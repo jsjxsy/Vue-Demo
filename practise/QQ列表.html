@@ -33,54 +33,75 @@
             background-color: #5683EA;
         }
 
-        li.content {
-            display: none;
-        }
+        /*li.content {*/
+        /*    display: none;*/
+        /*}*/
 
-        li.content > ul {
-            background-color: white;
-        }
+        /*li.content > ul {*/
+        /*    background-color: white;*/
+        /*}*/
 
-        li.content > ul > li {
-            padding-left: 30px;
-            border-bottom: 1px solid black;
-        }
+        /*li.content > ul > li {*/
+        /*    padding-left: 30px;*/
+        /*    border-bottom: 1px solid black;*/
+        /*}*/
     </style>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
 <div id="app">
     <ul-component :list="menu">
-        <li-component :item="item"></li-component>
+        <li-component v-slot="{item}">
+<!--                <li v-for="(child, index) in item.children" :key="index">{{child}}</li>-->
+        </li-component>
     </ul-component>
 </div>
 <script>
 Vue.component('ul-component', {
-    props:['list'],
-    template: `<ul>
-        <template v-for="item in menu">
-            <li class="title" @click="item.isShow = !item.isShow">
-                <div class="triangle-right"></div>
-                <span>{{item.title}}</span>
-            </li>
-            <li class="content" :style="item.isShow ? {display:'block'}:{display:'none'}">
-               <slot :item="item"></slot>
-            </li>
-        </template>
-    </ul>`,
-    data(){
+    props: ['list'],
+    template: `
+        <ul>
+            <template v-for="item in menu">
+                <li class="title" @click="item.isShow = !item.isShow">
+                    <div class="triangle-right"></div>
+                    <span>{{item.title}}</span>
+                </li>
+                <slot></slot>
+            </template>
+        </ul>`,
+    data() {
         return {
-            menu:this.list
+            menu: this.list
         }
     }
 
 })
 
-Vue.component('li-component',{
-    props:['item'],
-    template: `<ul>
-                    <li v-for="(child, index) in item.children" :key="index">{{child}}</li>
-                </ul>`,
+Vue.component('li-component', {
+    template: `
+        <div>
+            <slot :item="subMenu">
+                <ul>
+                    <li v-for="(child, index) in subMenu" :key="index">{{child.children}}</li>
+                </ul>
+            </slot>
+        </div>
+    `,
+    data() {
+        return {
+            subMenu: [
+                {
+                    children: ['张三', '张三', '张三', '张三']
+                },
+                {
+                    children: ['李四', '李四', '李四', '李四']
+                },
+                {
+                    children: ['张小三', '李小四']
+                }
+            ]
+        }
+    }
 })
 const vm = new Vue({
     el: '#app',
@@ -88,18 +109,15 @@ const vm = new Vue({
         menu: [
             {
                 title: '我的好友',
-                isShow: false,
-                children: ['张三', '张三', '张三', '张三']
+                isShow: false
             },
             {
                 title: '企业好友',
-                isShow: false,
-                children: ['李四', '李四', '李四', '李四']
+                isShow: false
             },
             {
                 title: '黑名单',
-                isShow: false,
-                children: ['张小三', '李小四']
+                isShow: false
             }
         ]
     }

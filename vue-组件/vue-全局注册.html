@@ -5,16 +5,16 @@
     </head>
     <body>
         <div id = "app">
-            
+
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        var App = Vue.component('App', {
+        const App = Vue.component('App', {
           template: '<h1>Hello App</h1>'
         })
 
-        var app = new Vue({
+        const app = new Vue({
             el : "#app",
             components: { App },
             template: '<App/>'

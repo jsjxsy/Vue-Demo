@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>is</title>
+</head>
+<body>
+<div id = "dynamic">
+    <button @click = "ChangeCurrentTemplate">ChangeCurrentTemplate</button>
+    <component :is = "templateName"></component>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+Vue.component("templateA", {
+    template : `<div>A</div>`
+})
+Vue.component("templateB", {
+    template : `<div>B</div>`
+})
+const dynamic = new Vue({
+    el: '#dynamic',
+    data : {
+        templateName : "templateA"
+    },
+    methods : {
+        ChangeCurrentTemplate : function(){
+            this.templateName == "templateA" ? this.templateName = "templateB" : this.templateName = "templateA";
+        }
+    }
+})
+</script>
+</body>
+</html>

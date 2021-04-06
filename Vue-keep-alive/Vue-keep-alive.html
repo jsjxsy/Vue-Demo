@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>keep-alive</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        #home {
+            width: 900px;
+            margin: 0 auto;
+            background: yellow;
+            padding-bottom: 100px;
+        }
+
+        .hello {
+            width: 700px;
+            height: 300px;
+            background: #ccc;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="home">
+    <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+<!--    <router-view v-if="!$route.meta.keepAlive"></router-view>-->
+    <p>
+        <router-link to="/">Hello</router-link>
+    </p>
+    <p>
+        <router-link to="/page1">page1</router-link>
+    </p>
+<!--    <keep-alive>-->
+<!--        <router-view></router-view>-->
+<!--    </keep-alive>-->
+</div>
+
+<!-- Page1页面 -->
+<template id="page1">
+    <div class="hello">
+        <h1>Vue</h1>
+        <h2>{{msg}}</h2>
+        <input placeholder="输入框"></input>
+    </div>
+</template>
+
+<!-- Hello页面 -->
+<template id="hello">
+    <div class="hello">
+        <h1>{{msg}}</h1>
+    </div>
+</template>
+
+<script>
+const Hello = Vue.component('Hello', {
+    template: '#hello',
+    data() {
+        return {
+            msg: 'this is hello component'
+        }
+    }
+})
+
+const Page1 = Vue.component('Page1', {
+    template: '#page1',
+    data() {
+        return {
+            msg: 'this is page1 component'
+        }
+    }
+})
+const router = new VueRouter({
+    routes: [
+        {
+            path: '/',
+            name: 'Hello',
+            component: Hello,
+            meta: {
+                keepAlive: false // 不需要缓存
+            }
+        },
+        {
+            path: '/page1',
+            name: 'Page1',
+            component: Page1,
+            meta: {
+                keepAlive: true // 需要被缓存
+            }
+        }
+    ]
+})
+new Vue({
+    el: '#home',
+    router: router
+})
+</script>
+</body>
+</html>

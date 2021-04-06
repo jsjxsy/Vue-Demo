@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Vue组件案列</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.bootcss.com/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
     <div id="app">
         <mycom1 @func123="pushContent"></mycom1>
-        
         <ul class="list-group">
             <li class="list-group-item" v-for="item in list" :key="item.id">
                 <span class="badge"> 评论人：{{item.user}}</span>
                 {{item.content}}
             </li>
         </ul>
-        
     </div>
+
     <template id="tem1">
         <div>
             <div class="form-group">
@@ -29,13 +29,13 @@
                 <input type="text" class="form-control" v-model="content">
             </div>
             <div class="form-group">
-                <input type="button" value="提交" class="btn btn-primary" @click="addContent"> 
+                <input type="button" value="提交" class="btn btn-primary" @click="addContent">
             </div>
         </div>
     </template>
 
     <script>
-        var component={
+        const component={
             template:"#tem1",
             data(){
                 return {
@@ -51,15 +51,11 @@
                             content:this.content
 
                         }
-                       this.$emit("func123",obj) 
+                       this.$emit("func123",obj)
                        this.name=this.content=""
                     }
                 }
-            
         }
-
-
-
         new Vue({
             el:"#app",
             data:{
@@ -78,9 +74,6 @@
                 }
             }
         })
-    
-    
-    
     </script>
 </body>
 </html>

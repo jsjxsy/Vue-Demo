@@ -17,14 +17,12 @@
           <child>
             <template slot-scope="props">
               <span>hello from parent</span>
+                <p>------------</p>
               <span>{{ props.text }}</span>
             </template>
           </child>
         </div>
-        <div id = "dynamic">
-            <button @click = "ChangeCurrentTemplate">ChangeCurrentTemplate</button>
-            <component :is = "templateName"></component>
-        </div>
+
     </body>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -35,12 +33,6 @@
             template : `<div class="child">\
                           <slot text="hello from child"></slot>\
                         </div>`
-        })
-        Vue.component("templateA", {
-            template : `<div>A</div>`
-        })
-        Vue.component("templateB", {
-            template : `<div>B</div>`
         })
         const myComponent = {
             template: `<div>\
@@ -64,17 +56,6 @@
         })
         const app = new Vue({
             el: '.parent'
-        })
-        const dynamic = new Vue({
-            el: '#dynamic',
-            data : {
-                templateName : "templateA"
-            },
-            methods : {
-                ChangeCurrentTemplate : function(){
-                    this.templateName == "templateA" ? this.templateName = "templateB" : this.templateName = "templateA";
-                }
-            }
         })
     </script>
 </html>

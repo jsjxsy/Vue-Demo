@@ -26,7 +26,7 @@
           methods: {
             // 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
             updateValue: function (value) {
-              var formattedValue = value
+              let formattedValue = value
                 // 删除两侧的空格符
                 .trim()
                 // 保留 2 位小数
@@ -45,7 +45,7 @@
             }
           }
         })
-        var app = new Vue({
+        const app = new Vue({
             el : "#app",
             data : {
                 price : 0

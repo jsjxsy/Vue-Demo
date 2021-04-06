@@ -10,9 +10,6 @@
         .myactive{
             color: red;
         }
-    
-    
-    
     </style>
 </head>
 <body>
@@ -23,9 +20,6 @@
         <router-link to="/register">注册</router-link>
         <router-view></router-view>
     </div>
-
-
-
     <script>
         var login={
             template:"<h1>登陆组件</h1>"
@@ -35,7 +29,6 @@
         }
      var router = new VueRouter({
          linkActiveClass:"myactive",
-
         routes: [
             {path:"/",redirect:"/login"},
             {path:"/login",component:login},
@@ -43,19 +36,16 @@
         ]
     })
 
-
-
     new Vue({
         el:"#app",
         data:{
-
         },
         router: router
     })
-    
-    
-    
+
+
+
     </script>
-   
+
 </body>
 </html>
