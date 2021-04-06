@@ -42,7 +42,7 @@
         Vue.component("templateB", {
             template : `<div>B</div>`
         })
-        var myComponent = {
+        const myComponent = {
             template: `<div>\
               <h2>我是子组件的标题</h2>\
               <slot name = "header"> 只有在没有要分发的内容时才会显示。 </slot>\
@@ -52,20 +52,20 @@
             </div>`
         }
         // bar 组件
-        var bar = {
+        const bar = {
             template: '<div><p>the count of bar</p></div>'
         }
-        var vm = new Vue({
+        const vm = new Vue({
             el: '#app',
             components: {
                 "my-component" : myComponent,
                 "bar" : bar
             }
         })
-        var app = new Vue({
+        const app = new Vue({
             el: '.parent'
         })
-        var dynamic = new Vue({
+        const dynamic = new Vue({
             el: '#dynamic',
             data : {
                 templateName : "templateA"

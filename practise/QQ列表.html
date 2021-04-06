@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        main {
+        #app {
             width: 180px;
             margin: 10px auto;
             border: 1px solid black;
@@ -50,21 +50,38 @@
 </head>
 <body>
 <div id="app">
-    <ul>
+    <ul-component :list="menu">
+        <li-component :item="item"></li-component>
+    </ul-component>
+</div>
+<script>
+Vue.component('ul-component', {
+    props:['list'],
+    template: `<ul>
         <template v-for="item in menu">
             <li class="title" @click="item.isShow = !item.isShow">
                 <div class="triangle-right"></div>
                 <span>{{item.title}}</span>
             </li>
             <li class="content" :style="item.isShow ? {display:'block'}:{display:'none'}">
-                <ul>
-                    <li v-for="(child, index) in item.children" :key="index">{{child}}</li>
-                </ul>
+               <slot :item="item"></slot>
             </li>
         </template>
-    </ul>
-</div>
-<script>
+    </ul>`,
+    data(){
+        return {
+            menu:this.list
+        }
+    }
+
+})
+
+Vue.component('li-component',{
+    props:['item'],
+    template: `<ul>
+                    <li v-for="(child, index) in item.children" :key="index">{{child}}</li>
+                </ul>`,
+})
 const vm = new Vue({
     el: '#app',
     data: {
@@ -87,6 +104,7 @@ const vm = new Vue({
         ]
     }
 })
+
 </script>
 </body>
 </html>
