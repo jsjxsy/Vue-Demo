@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-demo</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script src="./js/vuex.js"></script>
+</head>
+<body>
+<div id="demo">
+    <h1>Hello App!</h1>
+    <ul>
+        <li>
+            <router-link to="/index">index page</router-link>
+        </li>
+        <li>
+            <router-link to="/main">main page</router-link>
+        </li>
+    </ul>
+    <router-view></router-view>
+</div>
+<script type="text/javascript">
+const index_component = {
+    template: '<div>' +
+        '<p>this is index component</p>' +
+        '<button @click="handleAdd">+1</button>' +
+        '<button @click="handleReduce">-1</button>' +
+        '<p>count:{{count}}</p>' +
+        '</div>',
+    computed: {
+        count() {
+            return this.$store.state.a.count
+        }
+    },
+    methods: {
+        handleAdd() {
+            this.$store.dispatch('add').then(() => {
+                console.log('handleAdd() count=' + this.$store.state.a.count)
+            })
+        },
+        handleReduce() {
+            this.$store.commit({
+                type: 'reduce',
+                count: 2,
+                step: 2
+
+            })
+        }
+
+    }
+}
+Vue.component('index-component', index_component)
+const main_component = {
+    template: '<div>' +
+        '<p>this is main component</p>' +
+        '<button @click="handleAdd">+1</button>' +
+        '<button @click="handleReduce">-1</button>' +
+        '<p>count:{{count}}</p>' +
+        '</div>',
+    computed: {
+        count() {
+            return this.$store.state.b.count
+        }
+    },
+    methods: {
+        handleAdd() {
+            this.$store.dispatch('add').then(() => {
+                console.log('handleAdd() count=' + this.$store.state.b.count)
+            })
+        },
+        handleReduce() {
+            this.$store.commit({
+                type: 'reduce',
+                count: 2,
+                step: 2
+
+            })
+        }
+
+    }
+}
+Vue.component('main-component', main_component)
+const routes = [
+    {
+        path: '/index',
+        component: index_component
+    },
+    {
+        path: '/main',
+        component: main_component
+    }
+]
+const router = new VueRouter({routes: routes})
+const storeIndex = {
+    state: {
+        count: 0
+    },
+    mutations: {
+        add(state, params) {
+            console.log('mutations-add')
+            state.count += params.count + params.step
+        },
+        reduce(state, params) {
+            state.count -= params.count + params.step
+        }
+    },
+    actions: {
+        add(context) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    console.log('actions-add')
+                    context.commit({
+                        type: 'add',
+                        count: 2,
+                        step: 2
+                    })F
+                    resolve()
+                }, 1000 * 2)
+            })
+
+        }
+    }
+}
+
+const storeMain = {
+    state: {
+        count: 0
+    },
+    mutations: {
+        add(state, params) {
+            console.log('mutations-add')
+            state.count += params.count + params.step
+        },
+        reduce(state, params) {
+            state.count -= params.count + params.step
+        }
+    },
+    actions: {
+        add(context) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    console.log('actions-add')
+                    context.commit({
+                        type: 'add',
+                        count: 2,
+                        step: 2
+                    })
+                    resolve()
+                }, 1000 * 2)
+            })
+
+        }
+    }
+}
+
+const store = new Vuex.Store({
+    modules:{
+        a:storeIndex,
+        b:storeMain
+    }
+})
+const vm = new Vue({
+    el: '#demo',
+    router,
+    store
+})
+</script>
+
+</body>
+</html>

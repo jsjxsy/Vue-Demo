@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-demo</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+<div id="demo" test="asdf">
+    <p>{{msg}}</p>
+    <p ref="p" @click="handle">hello</p>
+    <child v-on:event-one="methodOne" v-on:event-two="methodTwo"/>
+    <base-input
+            label="姓名"
+            class="name-input"
+            placeholder="请输入姓名"
+            test-attrs="$attrs"
+    ></base-input>
+</div>
+<script type="text/javascript">
+Vue.component('child', {
+    template: '<div>this is child' +
+        '<p @click="one">one</p>' +
+        '<p @click="two">two</p>' +
+        '</div>',
+    methods: {
+        one() {
+            this.$emit('event-one')
+        },
+        two() {
+            this.$emit('event-two')
+        }
+    }
+})
+Vue.component('base-input', {
+    inheritAttrs: true, //此处设置禁用继承特性
+    props: ['label'],
+    template: `
+        <label>
+            {{label}}-
+            {{$attrs.placeholder}}-
+            <input v-bind="$attrs"/>
+        </label>
+    `,
+    mounted: function () {
+        console.log(this.$attrs)
+    }
+})
+const vm = new Vue({
+    el: '#demo',
+    props: {
+        name: {
+            type: String,
+            default: 'unknown'
+        }
+    },
+    data: {
+        msg: 'hello'
+    },
+    destroyed() {
+        console.log('destroyed')
+    },
+    methods: {
+        handle() {
+            this.$destroy()
+            console.log('handle')
+        },
+        methodOne() {
+            console.log('one')
+        },
+        methodTwo() {
+            console.log('two')
+        }
+    },
+    mounted() {
+        console.log('data=' + this.$data.msg)
+    }
+})
+console.log('$data:' + vm.$data.msg)
+console.log('$props:' + vm.$props.name)
+console.log('$el:' + vm.$el.firstElementChild)
+console.log('$root:' + vm.$root)
+console.log('$parent:' + vm.$parent)
+console.log('$slots:' + vm.$slots)
+console.log('$scopedSlots:' + vm.$scopedSlots)
+console.log('$attrs:' + vm.$attrs)
+console.log('$listeners:' + vm.$listeners)
+console.log('$refs:' + vm.$refs)
+console.log('$isServer:' + vm.$isServer)
+</script>
+
+</body>
+</html>

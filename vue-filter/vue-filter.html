@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-demo</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{msg | addFilter | addDetail | filterA(5)}}
+</div>
+<script>
+Vue.filter('addDetail', function (value) {
+    return value + ' add detail'
+})
+
+Vue.filter('filterA', function (value, num) {
+    return value + ' num:' + num
+})
+const vm = new Vue({
+    el: '#app',
+    data: {
+        msg: 'this is msg'
+    },
+    template:'<p style="background-color: green">this 2 {{msg}}</p>',
+    watch: {
+        msg: function (newVal, oldVal) {
+            console.log('newVal=' + newVal)
+            console.log('oldVal=' + oldVal)
+        }
+    },
+    filters: {
+        addFilter: function (value) {
+            return value + ' filter'
+        }
+    },
+})
+</script>
+</body>
+</html>

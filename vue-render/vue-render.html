@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ele>
+        <div id="child">
+            <Child></Child>
+        </div>
+    </ele>
+</div>
+<script>
+Vue.component('Child',{
+    render:function (createElement) {
+        return createElement('p','text')
+    }
+})
+Vue.component('ele', {
+    render: function (createElement) {
+        return createElement(
+            'div',
+            {
+              attrs:{
+                  id:'ele'
+              }
+            },
+            [
+                this.$slots.default,
+                this.$slots.default
+            ]
+        )
+    }
+})
+new Vue({
+    el: '#app'
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child-component>
+        <p slot="header">this is p</p>
+        <p slot="footer">this is p</p>
+        <p>{{message}}</p>
+        <template scope="data">
+            <p slot="header">this is p</p>
+            <p slot="footer">this is p</p>
+            <p>{{message}}</p>
+            <p>{{data.msg}}</p>
+        </template>
+    </child-component>
+</div>
+<script>
+Vue.component('child-component', {
+    template: '<div>' +
+        '<p style="background-color: red"><slot name="header"><p>this is head child</p></slot></p>' +
+        '<p style="background-color: green"><slot msg="this is slot"></slot></p>' +
+        '<slot name="footer"><p>this is foot child</p></slot>' +
+        '</div>',
+    mounted: function () {
+        const head = this.$slots.header
+        const foot = this.$slots.footer
+        console.log(head[0].elm.innerHTML)
+        console.log(foot[0].elm)
+        console.log(foot[0].ns)
+    }
+})
+new Vue({
+    el: '#app',
+    methods: {},
+    data: {
+        message: 'this is message'
+    }
+})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-focus value="123">
+    <p v-my_directive="my_data">{{msg}}</p>
+</div>
+<script>
+Vue.directive('focus', {
+    inserted: function (el) {
+        el.focus()
+    }
+})
+// Vue.directive('my-directive', {
+//     bind: function (el, binding, vnode) {
+//         console.log('binding.value=' + binding.value)
+//         el.innerHTML = binding.value.toUpperCase()
+//     }
+// })
+
+// Vue.directive('my-directive', function (el, binding, vnode) {
+//     console.log('binding.value=' + binding.value)
+//     el.innerHTML = binding.value.toUpperCase()
+// })
+new Vue({
+    el: '#app',
+    data: {
+        msg: 'this is message',
+        my_data: 'this is my data'
+    },
+    directives: {
+        my_directive: {
+            bind: function (el, binding, vnode) {
+                console.log('binding.value=' + binding.value)
+                el.innerHTML = binding.value.toUpperCase()
+            }
+        }
+    }
+
+})
+</script>
+</body>
+</html>

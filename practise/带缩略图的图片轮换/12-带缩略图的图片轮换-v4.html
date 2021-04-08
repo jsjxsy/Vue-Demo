@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12-带缩略图的图片轮换</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h1 {
+            color: white;
+            line-height: 80px;
+            margin-left: 80px;
+        }
+
+        .main {
+            background-image: url("img/bg.jpg");
+            width: 800px;
+            height: 800px;
+            margin: 10px auto;
+        }
+
+        .image {
+            position: relative;
+        }
+
+        .arrow {
+            width: 50px;
+            height: 50px;
+        }
+
+        .arrow-left {
+            position: absolute;
+            left: 10px;
+            top: 230px;
+        }
+
+        .arrow-right {
+            position: absolute;
+            right: 10px;
+            top: 230px;
+        }
+
+        .content {
+            width: 650px;
+            height: 650px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+            width: 180px;
+            margin: 10px auto;
+        }
+
+        li {
+            display: inline-block;
+            position: relative;
+            margin: 5px;
+        }
+
+        .tip-image {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            position: absolute;
+            left: -50px;
+            top: -120px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 拆分成两个组件 保持组件之间通讯-->
+<div id="app" class="main">
+    <image-component :images="images" :current-index="currentIndex"></image-component>
+    <dot-component :images="images" :current-index="currentIndex" :dot-images="dotImages">
+        <li v-for="(item, i) in images" :key="i">
+            <img :src="item" class="tip-image" ref="tip">
+            <img :src="currentIndex === i ? dotImages[0]:dotImages[1]"
+                 @click="current(i)" @mouseenter="enter(i)" @mouseleave="leave(i)" style="width:25px;height:25px;background-color: red"/>
+        </li>
+    </dot-component>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vuex"></script>
+<script type="module">
+import ImageComponent from './v4/image-component.js'
+import DotComponent from './v4/dot-component.js'
+
+const store = new Vuex.Store({
+    // 单一状态树
+    state: {
+        currentIndex: 0
+    },
+    mutations: {
+        change(state, params) {
+            state.currentIndex = params
+        }
+    }
+})
+
+const vm = new Vue({
+    el: '#app',
+    store,
+    data: {
+        dotImages: ['img/active.png', 'img/normal.png'],
+        currentIndex: 0,
+        images: ['img/01.png', 'img/02.png', 'img/03.png', 'img/04.png', 'img/05.png']
+    },
+    components: {
+        'image-component': ImageComponent,
+        'dot-component': DotComponent
+    },
+    watch: {
+        '$store.state.currentIndex': function() {
+            let that = this
+            console.debug(that.$store.state.currentIndex)
+            console.debug(this.currentIndex)
+            this.currentIndex = that.$store.state.currentIndex
+        }
+    },
+})
+// vm.$watch( '$store.state.currentIndex',function() {
+//     this.currentIndex = this.$store.state.currentIndex
+// })
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="parentMessage">
+    <button @click="handleMsg">button</button>
+    <p>{{msg}}</p>
+    <my-component :my-message="parentMessage" v-model="msg" @output="handleContent"
+                  @click.native="handleClick"></my-component>
+</div>
+<script type="text/x-template" id="my-component">
+<div>this is content by x-template {{msg}}
+    <p>msg: {{myMessage}}</p>
+    <input type="text" v-model="childMessage">
+    <button @click="submit">button</button>
+</div>
+</script>
+<script>
+Vue.component('my-component', {
+    template: '#my-component',
+    props: {
+        myMessage: {
+            type: String,
+            default: 'this is default'
+        }
+    },
+    methods: {
+        submit() {
+            this.$emit('output', this.childMessage)
+            this.$emit('input', this.childMessage)
+        }
+    },
+    data: function () {
+        return {
+            msg: 'this is msg',
+            childMessage: 'child msg'
+        }
+    }
+})
+new Vue({
+    el: '#app',
+    methods: {
+        handleContent(msg) {
+            this.parentMessage = msg
+        },
+        handleClick() {
+            console.log('this is handle click')
+        },
+        handleMsg() {
+            this.msg = this.parentMessage
+        }
+    },
+    data: {
+        msg: 'this msg',
+        parentMessage: 'this parent message'
+    }
+})
+</script>
+
+</body>
+</html>
