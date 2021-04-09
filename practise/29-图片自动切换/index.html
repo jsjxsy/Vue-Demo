@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        #app {
+            width: 500px;
+            height: 300px;
+            margin: 100px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        ul {
+            list-style: none;
+            position: relative;
+            width: 500px;
+            height: 300px;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+            position: absolute;
+            width: 500px;
+            height: 300px;
+        }
+
+        .bottom {
+            height: 80px;
+            width: 500px;
+            position: absolute;
+            bottom: -80px;
+            left: 0px;
+        }
+
+        .tip {
+            height: 80px;
+            width: 500px;
+            position: absolute;
+            display: inline-block;
+            background-color: black;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .tip div h3 {
+            font-size: 16px;
+            line-height: 30px;
+        }
+
+        .tip div p {
+            font-size: 14px;
+            line-height: 20px;
+            text-indent: 2em;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul ref="ul">
+        <li v-for="(item, index) in images" :key="index" :style="styles(index)">
+            <img :src="item"/>
+        </li>
+    </ul>
+    <div ref="div" class="bottom">
+        <div :style="styles(index)" class="tip" v-for="(item, index) in contents" :key="index">
+            <h3>{{item.title}}</h3>
+            <p>{{item.desc}}</p>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="module">
+import fn from './util.js'
+
+const vm = new Vue({
+    el: '#app',
+    data: {
+        currentIndex: 0,
+        images: ['img29/img5.gif', 'img29/img1.gif', 'img29/img2.gif', 'img29/img3.gif', 'img29/img4.gif', 'img29/img5.gif'],
+        contents: [
+            {
+                title: '辣爸荧幕成绩单5',
+                desc: '辣爸荧幕成绩单《爸爸，去哪儿？》今晚又要来了，你看过这些爸爸们的电影了么？'
+            },
+            {
+                title: '辣爸荧幕成绩单1',
+                desc: '辣爸荧幕成绩单《爸爸，去哪儿？》今晚又要来了，你看过这些爸爸们的电影了么？'
+            },
+            {
+                title: '辣爸荧幕成绩单2',
+                desc: '辣爸荧幕成绩单《爸爸，去哪儿？》今晚又要来了，你看过这些爸爸们的电影了么？'
+            },
+            {
+                title: '辣爸荧幕成绩单3',
+                desc: '辣爸荧幕成绩单《爸爸，去哪儿？》今晚又要来了，你看过这些爸爸们的电影了么？'
+            },
+            {
+                title: '辣爸荧幕成绩单4',
+                desc: '辣爸荧幕成绩单《爸爸，去哪儿？》今晚又要来了，你看过这些爸爸们的电影了么？'
+            },
+            {
+                title: '辣爸荧幕成绩单5',
+                desc: '辣爸荧幕成绩单《爸爸，去哪儿？》今晚又要来了，你看过这些爸爸们的电影了么？'
+            }
+        ]
+    },
+    methods: {
+        styles(index) {
+            console.log(index)
+            return {
+                left: 500 * index + 'px'
+            }
+        },
+        move() {
+            this.currentIndex ++
+            if(this.currentIndex >= this.images.length){
+                this.currentIndex = 1
+                this.$refs.ul.style.left="0px"
+                this.$refs.div.style.left="0px"
+            }
+            const p1 = fn(this.$refs.ul, 'left', -500*this.currentIndex, 2000)
+            const p2 = fn(this.$refs.ul, 'left', -500*this.currentIndex, 2000)
+            Promise.all([p1, p2])
+                .then(() => fn(this.$refs.div, 'bottom', 0, 1000))
+                .then(() => fn(this.$refs.div, 'bottom', 0, 1000))
+                .then(() => fn(this.$refs.div, 'bottom', -80, 1000))
+                .then(() => this.move())
+        }
+    },
+    mounted() {
+        this.move()
+    }
+})
+</script>
+</body>
+</html>
