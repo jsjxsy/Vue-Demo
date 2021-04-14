@@ -1,4 +1,4 @@
-export default function movePromise(obj, attr, target, duration) {
+function movePromise(obj, attr, target, duration) {
     return new Promise((res, rej) => {
         let b = parseInt(getComputedStyle(obj)[attr])
         let c = target - b
@@ -14,8 +14,9 @@ export default function movePromise(obj, attr, target, duration) {
             obj.style[attr] = v + 'px'
             if (t === d) {
                 res('success')
-            } else {
             }
         }, 20)
     })
 }
+
+export default movePromise
